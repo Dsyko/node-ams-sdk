@@ -1,0 +1,7 @@
+node_modules/*
+migrations/*
+scripts/*
+bin/*
+soap/*
+newrelic.js
+coverage/*
