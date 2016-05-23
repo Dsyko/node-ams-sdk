@@ -1,247 +1,247 @@
-var expect     = require('chai').expect
-var AMSService = require('../')
-var config     = require('../test-config')
+var expect = require('chai').expect;
+var AMSService = require('../');
+var config = require('../test-config');
 
-var amsService
+var amsService;
 
 
-describe('AMS Service', function () {
+describe('AMS Service', function() {
 
-  before(function () {
+  before(function() {
 
-    expect(config).to.exist
-    expect(config.service).to.exist
-    expect(config.service.client_id).to.exist
-    expect(config.service.client_secret).to.exist
-    expect(config.testAssetId).to.exist
-    expect(config.testQueueName).to.exist
+    expect(config).to.exist;
+    expect(config.service).to.exist;
+    expect(config.service.client_id).to.exist;
+    expect(config.service.client_secret).to.exist;
+    expect(config.testAssetId).to.exist;
+    expect(config.testQueueName).to.exist;
 
-  })
+  });
 
-  it('should exist', function(){
+  it('should exist', function() {
 
-    expect(AMSService).to.exist
+    expect(AMSService).to.exist;
 
-  })
+  });
 
-  describe('Notification Endpoints', function () {
+  describe('Notification Endpoints', function() {
 
-    this.timeout(5000)
+    this.timeout(5000);
 
-    before(function (done) {
+    before(function(done) {
 
-      //Create the service
-      amsService = new AMSService(config.service)
-      expect(amsService).to.exist
+      // Create the service
+      amsService = new AMSService(config.service);
+      expect(amsService).to.exist;
 
-      done()
-    })
+      done();
+    });
 
-    it('should list notification endpoints - cb', function (done) {
+    it('should list notification endpoints - cb', function(done) {
 
-      amsService.listNotificationEndpoints(function (err, res) {
+      amsService.listNotificationEndpoints(function(err, res) {
 
-        expect(err).to.not.exist
-        expect(res.body).to.exist
-        expect(res.statusCode).to.eql(200)
+        expect(err).to.not.exist;
+        expect(res.body).to.exist;
+        expect(res.statusCode).to.eql(200);
 
         try {
-          var data = JSON.parse(res.body)
+          var data = JSON.parse(res.body);
         } catch (err) {
-          expect(err).to.not.exist
+          expect(err).to.not.exist;
         }
 
-        expect(data).to.have.property('d')
-        expect(data.d).to.have.property('results')
+        expect(data).to.have.property('d');
+        expect(data.d).to.have.property('results');
 
-        done()
-      })
-    })
+        done();
+      });
+    });
 
-    it('should list notification endpoints - stream', function (done) {
+    it('should list notification endpoints - stream', function(done) {
 
-      var data = ''
+      var data = '';
 
       amsService.listNotificationEndpoints()
-      .on('data', function(d){
-        data += d
+      .on('data', function(d) {
+        data += d;
       })
-      .on('error', function(e){
-        expect(e).to.not.exist
+      .on('error', function(e) {
+        expect(e).to.not.exist;
       })
-      .on('end', function(){
+      .on('end', function() {
 
         try {
-          data = JSON.parse(data)
+          data = JSON.parse(data);
 
-        } catch (e){
-          expect(e).to.not.exist
+        } catch (e) {
+          expect(e).to.not.exist;
 
         }
 
-        expect(data).to.have.property('d')
-        expect(data.d).to.have.property('results')
-        expect(data.d.results).to.exist
+        expect(data).to.have.property('d');
+        expect(data.d).to.have.property('results');
+        expect(data.d.results).to.exist;
 
-        done()
+        done();
 
-      })
-    })
+      });
+    });
 
-    it('should create notification endpoint', function (done) {
+    it('should create notification endpoint', function(done) {
 
       var notificationEndpoint = {
         Name:            'TestEndpoint',
         EndPointAddress: config.testQueueName
-      }
+      };
 
-      amsService.createNotificationEndpoint(notificationEndpoint, function (err, res){
+      amsService.createNotificationEndpoint(notificationEndpoint, function(err, res) {
 
-        expect(err).to.not.exist
-        expect(res.body).to.exist
-        expect(res.statusCode).to.eql(201)
-
-        try {
-          var data = JSON.parse(res.body)
-        } catch (err) {
-          expect(err).to.not.exist
-        }
-
-        expect(data).to.have.property('d')
-        expect(data.d).to.have.property('Id')
-
-        endpointId = data.d.Id
-
-        done()
-
-      })
-    })
-
-    it('should get new notification endpoint - cb', function (done) {
-
-      amsService.getNotificationEndpoint(endpointId, function (err, res){
-
-        expect(err).to.not.exist
-        expect(res.body).to.exist
-        expect(res.statusCode).to.eql(200)
+        expect(err).to.not.exist;
+        expect(res.body).to.exist;
+        expect(res.statusCode).to.eql(201);
 
         try {
-          var data = JSON.parse(res.body)
+          var data = JSON.parse(res.body);
         } catch (err) {
-          expect(err).to.not.exist
+          expect(err).to.not.exist;
         }
 
-        expect(data).to.have.property('d')
-        expect(data.d).to.have.property('Id')
+        expect(data).to.have.property('d');
+        expect(data.d).to.have.property('Id');
 
-        endpointId = data.d.Id
+        endpointId = data.d.Id;
 
-        done()
+        done();
 
-      })
+      });
+    });
 
-    })
+    it('should get new notification endpoint - cb', function(done) {
 
-    it('should get new notification endpoint - stream', function (done) {
+      amsService.getNotificationEndpoint(endpointId, function(err, res) {
 
-      var data = ''
+        expect(err).to.not.exist;
+        expect(res.body).to.exist;
+        expect(res.statusCode).to.eql(200);
+
+        try {
+          var data = JSON.parse(res.body);
+        } catch (err) {
+          expect(err).to.not.exist;
+        }
+
+        expect(data).to.have.property('d');
+        expect(data.d).to.have.property('Id');
+
+        endpointId = data.d.Id;
+
+        done();
+
+      });
+
+    });
+
+    it('should get new notification endpoint - stream', function(done) {
+
+      var data = '';
 
       amsService.getNotificationEndpoint(endpointId)
-      .on('data', function(d){
-        data += d
+      .on('data', function(d) {
+        data += d;
       })
-      .on('error', function(e){
-        expect(e).to.not.exist
+      .on('error', function(e) {
+        expect(e).to.not.exist;
       })
-      .on('end', function(){
+      .on('end', function() {
 
         try {
-          data = JSON.parse(data)
+          data = JSON.parse(data);
 
-        } catch (e){
-          expect(e).to.not.exist
+        } catch (e) {
+          expect(e).to.not.exist;
 
         }
 
-        expect(data).to.have.property('d')
-        expect(data.d).to.have.property('Id')
-        expect(data.d.Name).to.eql('TestEndpoint')
+        expect(data).to.have.property('d');
+        expect(data.d).to.have.property('Id');
+        expect(data.d.Name).to.eql('TestEndpoint');
 
-        done()
+        done();
 
-      })
-    })
+      });
+    });
 
-    it('should update notification endpoint', function (done) {
+    it('should update notification endpoint', function(done) {
 
       var notificationEndpoint = {
         Name: 'TestEndpoint2'
-      }
+      };
 
-      amsService.updateNotificationEndpoint(endpointId, notificationEndpoint, function (err, res){
+      amsService.updateNotificationEndpoint(endpointId, notificationEndpoint, function(err, res) {
 
-        expect(err).to.not.exist
-        expect(res.body).to.exist
-        expect(res.statusCode).to.eql(204)
+        expect(err).to.not.exist;
+        expect(res.body).to.exist;
+        expect(res.statusCode).to.eql(204);
 
-        done()
+        done();
 
-      })
-    })
+      });
+    });
 
-    it('should get updated notification endpoint - stream', function (done) {
+    it('should get updated notification endpoint - stream', function(done) {
 
-      var data = ''
+      var data = '';
 
       amsService.getNotificationEndpoint(endpointId)
-      .on('data', function(d){
-        data += d
+      .on('data', function(d) {
+        data += d;
       })
-      .on('error', function(e){
-        expect(e).to.not.exist
+      .on('error', function(e) {
+        expect(e).to.not.exist;
       })
-      .on('end', function(){
+      .on('end', function() {
 
         try {
-          data = JSON.parse(data)
+          data = JSON.parse(data);
 
-        } catch (e){
-          expect(e).to.not.exist
+        } catch (e) {
+          expect(e).to.not.exist;
 
         }
 
-        expect(data).to.have.property('d')
-        expect(data.d).to.have.property('Id')
-        expect(data.d.Name).to.eql('TestEndpoint2')
+        expect(data).to.have.property('d');
+        expect(data.d).to.have.property('Id');
+        expect(data.d.Name).to.eql('TestEndpoint2');
 
-        done()
+        done();
 
-      })
-    })
+      });
+    });
 
-    it('should remove notification endpoint', function (done) {
+    it('should remove notification endpoint', function(done) {
 
-      amsService.removeNotificationEndpoint(endpointId, function (err, res){
+      amsService.removeNotificationEndpoint(endpointId, function(err, res) {
 
-        expect(err).to.not.exist
-        expect(res.body).to.exist
-        expect(res.statusCode).to.eql(204)
+        expect(err).to.not.exist;
+        expect(res.body).to.exist;
+        expect(res.statusCode).to.eql(204);
 
-        done()
+        done();
 
-      })
-    })
+      });
+    });
 
-    it('should not get deleted notification endpoint', function (done) {
+    it('should not get deleted notification endpoint', function(done) {
 
-      amsService.getNotificationEndpoint(endpointId, function (err, res){
+      amsService.getNotificationEndpoint(endpointId, function(err, res) {
 
-        expect(err).to.not.exist
-        expect(res.statusCode).to.eql(404)
-        done()
+        expect(err).to.not.exist;
+        expect(res.statusCode).to.eql(404);
+        done();
 
-      })
+      });
 
-    })
-  })
-})
+    });
+  });
+});

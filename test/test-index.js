@@ -1,60 +1,60 @@
-var expect     = require('chai').expect
-var AMSService = require('../')
-var config     = require('../test-config')
+var expect = require('chai').expect;
+var AMSService = require('../');
+var config = require('../test-config');
 
-describe('AMS Service', function () {
+describe('AMS Service', function() {
 
-  before(function () {
+  before(function() {
 
-    expect(config).to.exist
-    expect(config.service).to.exist
-    expect(config.service.client_id).to.exist
-    expect(config.service.client_secret).to.exist
-    expect(config.testAssetId).to.exist
-    expect(config.testQueueName).to.exist
+    expect(config).to.exist;
+    expect(config.service).to.exist;
+    expect(config.service.client_id).to.exist;
+    expect(config.service.client_secret).to.exist;
+    expect(config.testAssetId).to.exist;
+    expect(config.testQueueName).to.exist;
 
-  })
+  });
 
-  it('should exist', function(){
+  it('should exist', function() {
 
-    expect(AMSService).to.exist
+    expect(AMSService).to.exist;
 
-  })
+  });
 
-  describe('Instantiation', function(){
+  describe('Instantiation', function() {
 
-    before(function(done){
+    before(function(done) {
 
-      //Check there is a config
-      expect(config).to.exist
-      done()
+      // Check there is a config
+      expect(config).to.exist;
+      done();
 
-    })
+    });
 
-    it('should create new serice with config', function(){
+    it('should create new serice with config', function() {
 
-      amsService = new AMSService(config.service)
-      expect(amsService).to.exist
+      amsService = new AMSService(config.service);
+      expect(amsService).to.exist;
 
-    })
+    });
 
-    it('should have request property', function(){
+    it('should have request property', function() {
 
-      expect(amsService).to.have.property('request')
+      expect(amsService).to.have.property('request');
 
-    })
+    });
 
-    it('should set the access token', function (done){
+    it('should set the access token', function(done) {
 
-      amsService.setToken(function (err) {
+      amsService.setToken(function(err) {
 
-        expect(err).to.not.exist
-        expect(amsService.request.token).to.exist
-        expect(amsService.request.tokenExpires).to.exist
+        expect(err).to.not.exist;
+        expect(amsService.request.token).to.exist;
+        expect(amsService.request.tokenExpires).to.exist;
 
-        done()
+        done();
 
-      })
-    })
-  })
-})
+      });
+    });
+  });
+});
