@@ -1,11 +1,11 @@
 {
-  "name": "node-ams-sdk",
-  "version": "0.0.1",
+  "name": "ams-sdk",
+  "version": "0.0.2",
   "description": "Client SDK for Azure Media Service",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:alexey-sadovin/node-ams-sdk.git"
+    "url": "git+ssh://git@github.com/alexey-sadovin/node-ams-sdk.git"
   },
   "dependencies": {
     "async": "1.4.2",
@@ -28,5 +28,17 @@
     "chai": "~1.9.0",
     "jshint": "^2.5.0",
     "precommit-hook": "^0.4.1"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/alexey-sadovin/node-ams-sdk/issues"
+  },
+  "homepage": "https://github.com/alexey-sadovin/node-ams-sdk#readme",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "ams"
+  ],
+  "author": "alexey.sadovin",
+  "license": "MIT"
 }
