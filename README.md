@@ -1,4 +1,4 @@
-node-ams-sdk
+ams-sdk
 ============
 
 Provides lightweight wrapper around Azure Media Services REST API
@@ -10,18 +10,16 @@ Provides lightweight wrapper around Azure Media Services REST API
 ```
 //Eventually...
 
-npm install --save node-ams-sdk
+npm install --save ams-sdk
 
 ```
 
 You initialize the service by providing a configuration object
 
 ```
-var AzureService  = require('node-ams-sdk')
-var serviceConfig = require('../path/to/config') || {your: config}
-
-var amsService = new AzureService(serviceConfig)
-
+var AzureService  = require('ams-sdk')
+var config = require('./../path/to/config') || {your: config}
+var amsService = new AzureService(config)
 ```
 
 If you already have your ams token, then you can specify it in your config like
