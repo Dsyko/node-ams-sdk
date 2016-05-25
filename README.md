@@ -8,10 +8,7 @@ Provides lightweight wrapper around Azure Media Services REST API
 
 
 ```
-//Eventually...
-
 npm install --save ams-sdk
-
 ```
 
 You initialize the service by providing a configuration object
